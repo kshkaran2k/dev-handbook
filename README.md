@@ -11,6 +11,6 @@ The goal isn't a polished tutorial series, but a growing reference I (and hopefu
 - **Cloud** — notes on AWS/GCP/Azure services and when to use what
 
 ## Current contents
-- [`mongodb.md`](./mongodb.md) — MongoDB overview + data modeling guidelines (embed vs reference), with worked examples
+- [`mongodb.md`](databases/mongodb.md) — MongoDB overview + data modeling guidelines (embed vs reference), with worked examples
 
 More topics will be added. Contributions, corrections, or suggestions are welcome via issues/PRs.
