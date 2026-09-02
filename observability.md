@@ -1,14 +1,44 @@
-# OpenTelemetry
+# Observability
 
 ## Outline
-1. What actually changes when adopt OTel
-2. The data model
-3. Instrumentation strategy
-4. My experince with OTel
+1. Introduction
+2. What actually changes when adopt OTel
+3. The data model
+4. Instrumentation strategy
+5. My experince with OTel
 
 ---
 
-## 1. What actually changes when adopt OTel
+## 1. Introduction
+
+### What is observability and why we need it?
+
+As most of the systems are running in microservices or huge monolithic systems, it is very crucial to identify the unexpected failures or troubleshooting the errors. This makes the troubleshooting slower and affects the service reliability and customer experience.
+
+
+### Three pillars of observability
+
+- `Logs` captures the informations from the systems transactions and events in the running systems. This includes the errors, warnings and other activities. Analysing logs helps to identify why there is a deviation in the system
+
+- `Metrics` are the KPI based measurement parameters. These are used to create dashboards and visualise performance indicators like CPU utilization, memory utilization, network throughput, etc.
+
+- `Tracing` records and tracks the flow of the request moves end-to-end through various components of the systems
+
+
+### Monitoring v/s Observability
+
+| Aspect | Monitoring | Observability |
+| --- | --- | --- |
+| Goals | Identify and alert on known issues and metrics | Understand and explore unknown behaviors |
+| Scope | Focuses on upptime and system metrics | Provide a holistic view of the system using it's pillars |
+| Data source | Metrics of the system | All the outputs |
+| Complexities | Easier to implement using standard metrics | More complex as requires deep integration |
+| Examples | Nagios, Prometheus | Grafana, OTel, Jaeger|
+
+
+---
+
+## 2. What actually changes when adopt OTel
 
 The team has used Zipkin/Jaeger clients, Prometheus client libraries, or a vendor APM agent (Datadog, New Relic, AppDynamics) directly, here's the mental shift:
 
@@ -29,7 +59,7 @@ The payoff worth explaining to an architecture review board isn't "better teleme
 ---
 
 
-## 2. The data model
+## 3. The data model
 
 ### Trace anatomy
 
@@ -56,7 +86,7 @@ OTel wraps existing logging libraries (Log4j/SLF4J, Python's `logging`) rather t
 ---
 
 
-## 3. Instrumentation strategy
+## 4. Instrumentation strategy
 
 - **Default recommendation for an existing fleet: turn on auto-instrumentation everywhere first.** It gives baseline HTTP/DB/RPC span coverage with zero application code changes, and it's what actually gets an organization from "no traces" to "we have traces" fastest.
 - **Reserve manual instrumentation for business-meaningful spans** the automatic layer can't see — a specific pricing calculation, a fraud-check decision path — rather than sprinkling it everywhere. Over-instrumenting manually is a maintenance tax: spans become one more thing that rots when nobody updates them during a refactor, the same failure mode as stale log statements or stale metrics.
@@ -66,7 +96,7 @@ OTel wraps existing logging libraries (Log4j/SLF4J, Python's `logging`) rather t
 
 
 
-## My experience with OTel
+## 5. My experience with OTel
 
 We were using one of the paid APM agent.
 Switching from that to OTel was one of the big task. But after getting to know
